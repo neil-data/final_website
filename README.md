@@ -9,7 +9,6 @@
 ## Live Demo
 
 ✅ Interactive demo running on Streamlit Cloud  
-🔗 **[Coming Soon — Hackathon Submission]**
 
 <br/>
 
