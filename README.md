@@ -2,11 +2,14 @@
 
 # 🚦 TrafficMind AI
 
-### LLM Co-Pilot for Traffic Incident Command
+### *LLM Co-Pilot for Traffic Incident Command*
 
-> Upload live sensor feeds → Get *AI-powered signal re-timing, diversion routes, public alert drafts & conversational incident queries* — all in real time. No manual synthesis. No cognitive overload. Just smarter command decisions.
+> Upload live sensor feeds → Get **AI-powered signal re-timing, diversion routes, public alert drafts & conversational incident queries** — all in real time. No manual synthesis. No cognitive overload. Just smarter command decisions.
+
+## Live Demo
 
 ✅ Interactive demo running on Streamlit Cloud  
+🔗 **[Coming Soon — Hackathon Submission]**
 
 <br/>
 
@@ -35,22 +38,22 @@
 
 When a major accident strikes, traffic control officers are drowning in fragmented information — radio calls, sensor feeds, camera streams, and city maps — all at once, under extreme time pressure.
 
-- *No integrated view* — sensor data, incident reports, and road information live in separate systems that don't communicate with each other
-- *Manual decision-making* — signal re-timing and diversion routes are chosen from experience alone, with zero computational support
-- *Hand-drafted alerts* — public messages for variable signs, radio, and social media are written manually during the most chaotic moments
-- *Every minute matters* — response delay means longer clearance times, more secondary accidents, and measurable economic loss
+- **No integrated view** — sensor data, incident reports, and road information live in separate systems that don't communicate with each other
+- **Manual decision-making** — signal re-timing and diversion routes are chosen from experience alone, with zero computational support
+- **Hand-drafted alerts** — public messages for variable signs, radio, and social media are written manually during the most chaotic moments
+- **Every minute matters** — response delay means longer clearance times, more secondary accidents, and measurable economic loss
 
-The question isn't whether better tools would help — they clearly would. The question is whether an LLM can ingest live feeds and reason across them fast enough to be *genuinely useful under pressure*.
+The question isn't whether better tools would help — they clearly would. The question is whether an LLM can ingest live feeds and reason across them fast enough to be **genuinely useful under pressure**.
 
-> *TrafficMind AI answers that question with a yes.*
+> **TrafficMind AI answers that question with a yes.**
 
 ---
 
 ## What It Builds
 
-TrafficMind AI is an *LLM-powered incident co-pilot* that ingests live traffic feeds and generates four types of real-time intelligence in natural language:
+TrafficMind AI is an **LLM-powered incident co-pilot** that ingests live traffic feeds and generates four types of real-time intelligence in natural language:
 
-
+```
 📡 Live Traffic Feed
         │
         ├── 🚦 Signal Re-Timing Suggestions
@@ -66,15 +69,15 @@ TrafficMind AI is an *LLM-powered incident co-pilot* that ingests live traffic f
                 └── 'Is it safe to open the southbound lane now?'
                     'What's the estimated clearance time?'
                     'Which route has the least secondary risk?'
+```
 
-
-*The officer stays in command. The AI handles the cognitive load.*
+**The officer stays in command. The AI handles the cognitive load.**
 
 ---
 
 ## System Architecture
 
-mermaid
+```mermaid
 flowchart TD
     A("🚗 Live Traffic Feed\nNYC Speed CSV") -->|"5-second replay intervals"| B("📊 Feed Simulator\nPandas + Threading")
     B -->|"Speed, flow, congestion"| C("⚛️ Streamlit Dashboard\nMap · Sidebar · Chat")
@@ -99,13 +102,13 @@ flowchart TD
     style I fill:#3949AB,color:#fff,stroke:#1A237E
     style J fill:#6D4C41,color:#fff,stroke:#3E2723
     style K fill:#546E7A,color:#fff,stroke:#263238
-
+```
 
 ---
 
 ## Data Flow
 
-mermaid
+```mermaid
 sequenceDiagram
     actor Officer
     participant UI as 🖥️ Streamlit UI
@@ -127,33 +130,33 @@ sequenceDiagram
     UI->>LLM: Multi-turn conversational query
     LLM-->>UI: Natural language answer with context
     UI-->>Officer: Incident narrative response
-
+```
 
 ---
 
 ## ML & AI Pipeline
 
-TrafficMind AI is not a generic chatbot wrapper. It is a *structured incident reasoning system* that combines real-time data simulation, graph-based routing, and multi-turn LLM inference.
+TrafficMind AI is not a generic chatbot wrapper. It is a **structured incident reasoning system** that combines real-time data simulation, graph-based routing, and multi-turn LLM inference.
 
 ### Feed Simulation Layer
 
 | Component | Technology | Role |
 |:----------|:-----------|:-----|
-| *Speed Replay* | Pandas CSV reader | Loads NYC traffic speed dataset, replays at 5-second intervals |
-| *Threading* | Python threading | Non-blocking background feed ingestion |
-| *Congestion Scoring* | Computed speed ratios | Flags segments below threshold as incident-critical |
+| **Speed Replay** | Pandas CSV reader | Loads NYC traffic speed dataset, replays at 5-second intervals |
+| **Threading** | Python `threading` | Non-blocking background feed ingestion |
+| **Congestion Scoring** | Computed speed ratios | Flags segments below threshold as incident-critical |
 
 ### Map & Routing Layer
 
 | Component | Technology | Role |
 |:----------|:-----------|:-----|
-| *Road Graph* | OSMnx | Downloads real OpenStreetMap street network with actual intersection names |
-| *Diversion Routing* | NetworkX A\* | Computes optimal bypass routes weighted by current congestion |
-| *Map Render* | Folium + streamlit-folium | Speed-coloured road segments + diversion overlays on interactive map |
+| **Road Graph** | OSMnx | Downloads real OpenStreetMap street network with actual intersection names |
+| **Diversion Routing** | NetworkX A\* | Computes optimal bypass routes weighted by current congestion |
+| **Map Render** | Folium + streamlit-folium | Speed-coloured road segments + diversion overlays on interactive map |
 
 ### LLM Inference Layer
 
-
+```
 Incident Context Assembly
         │
         ├── Current congestion snapshot (top N blocked segments)
@@ -169,9 +172,9 @@ Incident Context Assembly
         ▼       ▼       ▼            ▼
    Signal   Diversion  Alert     Incident
    Re-timing  Routes   Drafts    Narrative
+```
 
-
-*Prompt engineering strategy:* Each inference call sends a structured system prompt encoding the officer's role, incident severity, available road context, and prior recommendations — enabling coherent multi-turn reasoning across the full incident lifecycle.
+**Prompt engineering strategy:** Each inference call sends a structured system prompt encoding the officer's role, incident severity, available road context, and prior recommendations — enabling coherent multi-turn reasoning across the full incident lifecycle.
 
 ---
 
@@ -181,14 +184,14 @@ Incident Context Assembly
 
 | Panel | Output |
 |:------|:-------|
-| *Signal Re-Timing* | Named intersections + recommended phase duration changes (e.g., "Extend green on 5th Ave North by 25 sec") |
-| *Diversion Routes* | Step-by-step activation sequence with estimated % traffic redistribution per route |
-| *Public Alert Drafts* | Three ready-to-publish formats: variable message sign (140 chars), radio script, social media post |
-| *Incident Narrative* | Conversational Q&A — officers query the live incident state in plain English |
+| **Signal Re-Timing** | Named intersections + recommended phase duration changes (e.g., "Extend green on 5th Ave North by 25 sec") |
+| **Diversion Routes** | Step-by-step activation sequence with estimated % traffic redistribution per route |
+| **Public Alert Drafts** | Three ready-to-publish formats: variable message sign (140 chars), radio script, social media post |
+| **Incident Narrative** | Conversational Q&A — officers query the live incident state in plain English |
 
 ### Platform Capabilities
 
-
+```
 ✅  Real-time NYC traffic speed feed replayed at 5-second intervals
 ✅  Speed-coloured interactive Folium map with congestion overlays
 ✅  Real street names from OSMnx OpenStreetMap graph download
@@ -199,7 +202,7 @@ Incident Context Assembly
 ✅  Signal phase recommendations with named intersection targets
 ✅  Streamlit sidebar + chat panel layout — no context switching
 ✅  Stateless, deployable on any Python 3.10+ environment
-
+```
 
 ---
 
@@ -207,18 +210,18 @@ Incident Context Assembly
 
 | Layer | Technology | Purpose |
 |:------|:-----------|:--------|
-| *Dashboard* | Streamlit (Python) | Renders map, sidebar, and chat panel in a unified incident command view |
-| *Map Layer* | Folium + streamlit-folium | Speed-coloured road segments · diversion route overlays · interactive incident flagging |
-| *Road Network* | OSMnx | Downloads real OpenStreetMap graph with actual street names and intersection topology |
-| *Routing Engine* | NetworkX (A\* algorithm) | Computes optimal diversion paths weighted by live congestion |
-| *Feed Simulation* | Pandas + Python threading | Replays NYC traffic speed CSV at 5-second intervals in background thread |
-| *LLM Layer* | Anthropic Python SDK (claude-sonnet-4-6) | Structured incident prompt + multi-turn conversational queries |
+| **Dashboard** | Streamlit (Python) | Renders map, sidebar, and chat panel in a unified incident command view |
+| **Map Layer** | Folium + streamlit-folium | Speed-coloured road segments · diversion route overlays · interactive incident flagging |
+| **Road Network** | OSMnx | Downloads real OpenStreetMap graph with actual street names and intersection topology |
+| **Routing Engine** | NetworkX (A\* algorithm) | Computes optimal diversion paths weighted by live congestion |
+| **Feed Simulation** | Pandas + Python threading | Replays NYC traffic speed CSV at 5-second intervals in background thread |
+| **LLM Layer** | Anthropic Python SDK (claude-sonnet-4-6) | Structured incident prompt + multi-turn conversational queries |
 
 ---
 
 ## Project Structure
 
-
+```
 trafficmind-ai/
 │
 ├── 📄 app.py                        # Streamlit entry point — layout, session state, render loop
@@ -245,7 +248,7 @@ trafficmind-ai/
 │
 ├── 📄 requirements.txt
 └── 📄 .env.example
-
+```
 
 ---
 
@@ -255,50 +258,50 @@ trafficmind-ai/
 
 - [Python 3.10+](https://python.org/)
 - [Anthropic API Key](https://console.anthropic.com/)
-- Internet connection (OSMnx downloads road graph on first run)
+- Internet connection *(OSMnx downloads road graph on first run)*
 
 ---
 
 ### 1️⃣ Clone the Repository
 
-bash
+```bash
 git clone https://github.com/your-org/trafficmind-ai.git
 cd trafficmind-ai
-
+```
 
 ---
 
 ### 2️⃣ Install Dependencies
 
-bash
+```bash
 python -m venv venv
 source venv/bin/activate      # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-
+```
 
 ---
 
 ### 3️⃣ Configure Environment
 
-bash
+```bash
 cp .env.example .env
+```
 
-
-env
+```env
 ANTHROPIC_API_KEY=your_anthropic_api_key_here
 CITY=Manhattan, New York, USA       # OSMnx graph target city
 FEED_INTERVAL_SEC=5                 # Speed data replay interval
 CONGESTION_THRESHOLD=0.4            # Speed ratio below which segment is flagged
-
+```
 
 ---
 
 ### 4️⃣ Run the Dashboard
 
-bash
+```bash
 streamlit run app.py
 # → Dashboard: http://localhost:8501
-
+```
 
 ---
 
@@ -308,7 +311,7 @@ streamlit run app.py
 
 The LLM is called with a structured prompt assembled from live context:
 
-python
+```python
 {
   "role": "system",
   "content": """
@@ -321,11 +324,11 @@ python
     Be specific. Be actionable. Prioritise life-safety over throughput.
   """
 }
-
+```
 
 ### Example LLM Response
 
-json
+```json
 {
   "signal_retiming": [
     { "intersection": "5th Ave & 42nd St", "change": "Extend northbound green by 25 sec, suppress eastbound phase" },
@@ -342,13 +345,13 @@ json
   },
   "narrative": "Two southbound lanes remain blocked. The incident vehicle has not yet been cleared. Based on current queue build-up at 34th St, I would not recommend opening the southbound lane for at least 12 more minutes."
 }
-
+```
 
 ---
 
 ## Example Dashboard Output
 
-
+```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
          🚦 TRAFFICMIND AI — INCIDENT COMMAND PANEL
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -383,7 +386,7 @@ OFFICER QUERY
   AI       :  "Not yet. Queue extends to 34th St. Recommend waiting
                12 more minutes until the incident vehicle clears."
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
+```
 
 ---
 
@@ -391,9 +394,9 @@ OFFICER QUERY
 
 | User | How They Use TrafficMind AI |
 |:-----|:----------------------------|
-| *Traffic Control Officers* | Real-time incident command — map view, signal recommendations, diversion activation |
-| *City Traffic Management Centres* | Centralised monitoring of multiple simultaneous incidents |
-| *Public Information Officers* | One-click ready-to-publish alert drafts across all channels |
+| **Traffic Control Officers** | Real-time incident command — map view, signal recommendations, diversion activation |
+| **City Traffic Management Centres** | Centralised monitoring of multiple simultaneous incidents |
+| **Public Information Officers** | One-click ready-to-publish alert drafts across all channels |
 
 ---
 
@@ -401,7 +404,7 @@ OFFICER QUERY
 
 Traditional incident management forces officers to mentally synthesise feeds from disconnected systems, draft communications by hand, and make routing decisions from experience alone — all simultaneously, under maximum pressure.
 
-TrafficMind AI doesn't replace the officer. It eliminates the cognitive bottleneck, so the officer can focus on command decisions rather than data synthesis. A working demo can quantify this directly: *specific minutes of response time saved vs manual coordination*, measured against the NYC speed feed replay.
+TrafficMind AI doesn't replace the officer. It eliminates the cognitive bottleneck, so the officer can focus on command decisions rather than data synthesis. A working demo can quantify this directly: **specific minutes of response time saved vs manual coordination**, measured against the NYC speed feed replay.
 
 ---
 
@@ -428,7 +431,7 @@ TrafficMind AI doesn't replace the officer. It eliminates the cognitive bottlene
 
 Contributions are always welcome!
 
-bash
+```bash
 # 1. Fork the repository
 # 2. Create your feature branch
 git checkout -b feature/amazing-feature
@@ -440,42 +443,23 @@ git commit -m "feat: add amazing feature"
 git push origin feature/amazing-feature
 
 # 5. Open a Pull Request 🎉
-
+```
 
 Please follow [Conventional Commits](https://www.conventionalcommits.org/) for commit messages.
 
 ---
-## Teammname: Tech Titan
-
-
-# Teamname & Teamwork:
----
-Chidatma Patel: LLM Integration — Groq Llama 3.3 Prompt Eng. & API 
----
----
-Devashya Jethva: Backend — Data Pipeline, OSMnx & NetworkX Routing 
----
----
-Neil Banerjee: Team Lead & Primary Frontend — Next.js Dashboard & Leaflet Map
----
----
-Rajvardhansingh Chauhan: Presentation & Documentation
----
----
-Vinayak Agarwal: Supporting Frontend — Streamlit Layout & UI
 
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
----
 
 ---
 
 <div align="center">
 
-Built for the Smart Transportation Track — Problem Statement 3
+*Built for the Smart Transportation Track — Problem Statement 3*
 
-*The officer stays in command. The AI handles the cognitive load.*
+**The officer stays in command. The AI handles the cognitive load.**
 
 [![Star on GitHub](https://img.shields.io/github/stars/your-org/trafficmind-ai?style=social)](https://github.com/your-org/trafficmind-ai)
 
