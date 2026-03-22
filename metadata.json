@@ -1,0 +1,5 @@
+{
+  "name": "NYC Traffic Incident Co-Pilot",
+  "description": "Real-time AI-powered system used by traffic control officers to manage live incidents.",
+  "requestFramePermissions": []
+}
